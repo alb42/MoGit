@@ -1,0 +1,17 @@
+MoGit - a MorphOS git helper tool
+
+Usage: MoGit [log|check|help] [path to repository]
+
+    help  = this help text
+    log   = show the commit log of the given repository
+    check = show the status of the given repository (changed files, staged, deleted, ...)
+
+if no parameter is given "log" and current directory is used as default.
+
+You need the git 2.16 MorphOS release, at the moment it expect it in sys:Development/ggt/usr/bin/git.
+An opens Scribble for the diff Viewing.
+Both location can be changed in the MoGit.ini file.
+
+In the Ini file can be set if the Window opens by default with "Show untracked files" checked or not.
+
+Have Fun.
