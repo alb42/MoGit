@@ -5,7 +5,7 @@ uses
   Classes, SysUtils;
 
 var
-  GitPath: string = '/usr/bin/git';
+  GitPath: string = 'gg:usr/bin/git';
   
 type
   TGitStatus = (gsUnknown, gsUntracked, gsModified, gsDeleted, gsAdded, gsRenamed, gsCopied);
@@ -59,11 +59,7 @@ begin
   Res.Clear;
   try
     SysUtils.SetCurrentDir(Path);
-    {$ifdef UNIX}
-    SysUtils.ExecuteProcess('/bin/bash', '-c "' + GitPath + ' ' + Parameter + ' >' + Temp + '"');
-    {$else}
     SysUtils.ExecuteProcess(GitPath, Parameter + ' >' + Temp);
-    {$endif}
     Res.LoadFromFile(Temp);
     DeleteFile(Temp);
   except
@@ -122,7 +118,6 @@ begin
       DoGit(Path, 'diff ' + ' --cached -- ' + FileName, SL)
     else
       DoGit(Path, 'diff ' + FullHash + ' -- ' + FileName, SL);
-    writeln('did diff ', SL.Count);
     if SL.Count > 0 then
     begin
       T := 'T:';      
@@ -132,7 +127,7 @@ begin
         Inc(Num);
       until not FileExists(Result);
       SL.SaveToFile(Result);
-      writeln('Saved file to: ', Result);
+      ToDelete.Add(Result);
     end;
   finally
     SL.Free;
